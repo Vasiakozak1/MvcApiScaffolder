@@ -1,0 +1,64 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="EnvDTE" #>
+<#@ parameter name="PropertyNames" type="System.String[]" #>
+<#@ parameter name="PropertyTypesNames" type="System.String[]" #>
+<#@ parameter name="EntityName" type="System.String" #>
+<#@ parameter name="EntityIdentiferType" type="System.String" #>
+<#@ parameter name = "EntityIdentiferName" type="System.String" #>
+<#@ parameter name = "ProjectUrl" type = "System.String" #>
+<#@ output extension=".cshtml" #>
+@model <#= EntityIdentiferType #>
+
+<h2 class="text-center">Edit <#= EntityName #> </h2>
+<form>
+	
+ <#	for(int i=0; i < PropertyNames.Length; i++)
+	{ #>
+		<div class="form-group">
+			<label for="<#= PropertyNames[i] #>" class="control-label"> <#= PropertyNames[i] #> </label>
+			<input type="text" class="form-control" name ="<#= PropertyNames[i] #>" id="<#= PropertyNames[i] #>"/>
+		</div>
+ <#	} #>
+ <div class="form-group">
+	<input type="button" value="Update" class="form-control" id="updateForm">
+ </div>
+
+</form>
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$.ajax({
+			url: '<#= ProjectUrl #>api/<#= EntityName #>s/Get/@Model',
+			type: 'GET',
+			success: function(data)
+			{
+				<# for(int i=0;i < PropertyNames.Length; i++)
+				{ #>
+					$('#<#= PropertyNames[i] #>').val(data.<#= PropertyNames[i] #>)
+			 <#	} #>
+			}
+		});
+	});
+	$('#updateForm').click(function(event)
+	{
+		var requestBody = {
+			<# for(int i = 0; i < PropertyNames.Length; i++)
+			{ #>
+				<#= PropertyNames[i] #>: $('#<#= PropertyNames[i] #>').val(), 				
+		<#	} #>
+			<#= EntityIdentiferName #>: '@Model'
+		};
+		$.ajax({
+			url: '<#= ProjectUrl #>/api/<#= EntityName #>s/Update',
+			type: 'POST',
+			data: requestBody,
+			dataType: 'json',
+			success: function()
+			{
+				window.location.replace('Url where you want to be after update');
+			}
+		});
+	});
+
+</script>

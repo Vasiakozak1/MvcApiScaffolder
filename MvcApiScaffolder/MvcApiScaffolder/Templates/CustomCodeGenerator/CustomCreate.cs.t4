@@ -1,0 +1,48 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="EnvDTE" #>
+<#@ parameter name="PropertyNames" type="System.String[]" #>
+<#@ parameter name="PropertyTypesNames" type="System.String[]" #>
+<#@ parameter name="EntityName" type="System.String" #>
+<#@ parameter name = "ProjectUrl" type = "System.String" #>
+<#@ output extension=".cshtml" #>
+
+<h2 class="text-center">Create <#= EntityName #></h2>
+<form>
+
+ <# for(int i=0; i < PropertyNames.Length; i++)
+	{ #>
+		<div class="form-group"> 
+			<label for="<#= PropertyNames[i] #>" class="control-label"> <#= PropertyNames[i] #> </label>
+			<input type="text" class="form-control" name="<#= PropertyNames[i] #>" id="<#= PropertyNames[i] #>" />
+		</div>
+ <#	} #>
+ <div class="form-group">
+	<input type="button" class="form-control" value="Create" id="formCreating">
+ </div>
+
+</form>
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$('#formCreating').click(function(event)
+		{
+			var requestBody = {
+				<# for(int i = 0; i < PropertyNames.Length; i++)
+				{ #>
+					<#= PropertyNames[i] #>: $('#<#= PropertyNames[i] #>').val(),
+			 <#	} #>
+			};
+			$.ajax({
+				url: '<#= ProjectUrl #>api/<#= EntityName #>s/Create',
+				type: 'POST',
+				data: requestBody,
+				dataType: 'json',
+				success: function()
+				{
+					window.location.replace("Url where you want to be after create");
+				}
+			});
+		});
+	});
+</script>

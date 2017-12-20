@@ -1,0 +1,35 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ parameter name="PropertyNames" type="System.String[]" #>
+<#@ parameter name="EntityName" type="System.String" #>
+<#@ parameter name="EntityIdentiferType" type="System.String" #>
+<#@ parameter name = "EntityIdentiferName" type="System.String" #>
+<#@ parameter name = "ProjectUrl" type = "System.String" #>
+<#@ output extension=".cshtml" #>
+@model <#= EntityIdentiferType #>
+
+<h2 class="text-center"><#= EntityName #>'s details</h2>
+
+<# for(int i = 0; i < PropertyNames.Length; i++)
+{ #>
+	<div class="form-group">
+		<label class="control-label"> <#= PropertyNames[i] #> </label>
+		<label class="label label-default" id="<#= PropertyNames[i] #>"></label>		
+	</div>
+<# } #>
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$.ajax({
+			type: 'GET',
+			url: '<#= ProjectUrl #>api/<#= EntityName #>s/Get/@Model',
+			success: function(data)
+			{
+				<# for(int i = 0; i < PropertyNames.Length; i++)
+				{ #>
+					$('#<#= PropertyNames[i] #>').text(data.<#= PropertyNames[i] #>);
+			 <#	} #>
+			}
+		});
+	});
+</script>

@@ -1,0 +1,25 @@
+﻿<Window x:Class="MvcApiScaffolder.UI.SelectModelWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" Height="191.464" Width="511" Title="Model Types">
+  <Grid>
+    <Label Content="Choose an entity type:" HorizontalAlignment="Left"   Margin="36,43,0,0" VerticalAlignment="Top"/>
+    <ComboBox HorizontalAlignment="Left" Name="EntityType"
+              Margin="169,43,0,0"
+              VerticalAlignment="Top"
+              ItemsSource="{Binding ModelTypes}"
+              DisplayMemberPath="DisplayName"
+              SelectedItem="{Binding SelectedModelType, Mode=OneWayToSource}"
+              Width="311" SelectionChanged="ComboBox_SelectionChanged"/>
+    <Button Content="Add" IsDefault="True" HorizontalAlignment="Left" Margin="314,120,0,0" VerticalAlignment="Top" 
+            Width="75" RenderTransformOrigin="-0.187,0.75" Click="Button_Click" Name="AddBtn"/>
+    <Button Content="Cancel" IsCancel="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="405,120,0,0"/>
+        <Label Content="Choose db context" HorizontalAlignment="Left" Margin="44,84,0,0" VerticalAlignment="Top" Width="113"/>
+        <ComboBox HorizontalAlignment="Left" Margin="169,84,0,0" VerticalAlignment="Top" Width="311"
+                  ItemsSource="{Binding DataContextTypeCollection}" DisplayMemberPath="DisplayName" Name="DbContextType"                
+                  SelectedItem="{Binding SelectedModelType, Mode=OneWayToSource}" SelectionChanged="DbContextType_SelectionChanged" />
+
+    </Grid>
+</Window>

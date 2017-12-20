@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="MvcApiScaffolderExtension..40e7bb7e-f72d-44cf-8439-2567be2590c6" Version="1.0" Language="en-US" Publisher="Author Name" />
+        <DisplayName>MvcApiScaffolderExtension</DisplayName>
+        <Description xml:space="preserve">VSIX Project to create a custom scaffolder.</Description>
+        <Icon>_TemplateIconSample.ico</Icon>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.2]" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="MvcApiScaffolder" Path="|MvcApiScaffolder|" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.Net.Component.4.5.TargetingPack" Version="[15.0.26621.2,16.0)" DisplayName=".NET Framework 4.5 targeting pack" />
+    </Prerequisites>
+</PackageManifest>
